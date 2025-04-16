@@ -1,124 +1,108 @@
 import React from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Profile = () => {
+  const user = {
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    phone: '+1 (555) 123-4567',
+    joinDate: 'Member since June 2020',
+    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+  };
+
+  const handleLogout = () => {
+    console.log('User logged out');
+    // Add your logout logic here
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Profile Card */}
-      <View style={styles.card}>
-        {/* Profile Image */}
-        <Image
-          source={{ uri: 'https://example.com/doctor.jpg' }} // Replace with your image
-          style={styles.profileImage}
-        />
-
-        {/* Name & Role */}
-        <Text style={styles.name}>Dr. Sarah Wilson</Text>
-        <View style={styles.badge}>
-          <Icon name="stethoscope" size={16} color="#0D47A1" />
-          <Text style={styles.badgeText}>Doctor</Text>
-        </View>
-
-        {/* Info */}
-        <View style={styles.infoSection}>
-          <InfoRow icon="hospital-building" label="Central Medical Center" />
-          <InfoRow icon="email-outline" label="dr.wilson@medical.com" />
-          <InfoRow icon="calendar-clock" label="Mon-Fri, 9AM - 5PM" />
-        </View>
-
-        {/* Logout */}
-        <TouchableOpacity style={styles.logoutBtn}>
-          <Icon name="logout" size={18} color="#fff" />
-          <Text style={styles.logoutText}>Logout</Text>
-        </TouchableOpacity>
+      <View style={styles.profileHeader}>
+        <Image source={{ uri: user.avatar }} style={styles.avatar} />
+        <Text style={styles.name}>{user.name}</Text>
       </View>
+
+      <View style={styles.infoContainer}>
+        <View style={styles.infoItem}>
+          <Text style={styles.infoLabel}>Email</Text>
+          <Text style={styles.infoValue}>{user.email}</Text>
+        </View>
+
+        <View style={styles.infoItem}>
+          <Text style={styles.infoLabel}>Phone</Text>
+          <Text style={styles.infoValue}>{user.phone}</Text>
+        </View>
+
+        <View style={styles.infoItem}>
+          <Text style={styles.infoLabel}>Member Since</Text>
+          <Text style={styles.infoValue}>{user.joinDate}</Text>
+        </View>
+      </View>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutButtonText}>Log Out</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
-const InfoRow = ({ icon, label }) => (
-  <View style={styles.infoRow}>
-    <Icon name={icon} size={18} color="#1976D2" />
-    <Text style={styles.infoText}>{label}</Text>
-  </View>
-);
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EAF2F8',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
     padding: 20,
   },
-  card: {
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    paddingVertical: 30,
-    paddingHorizontal: 25,
+  profileHeader: {
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 10,
-    elevation: 5,
-  },
-  profileImage: {
-    width: 95,
-    height: 95,
-    borderRadius: 50,
-    marginBottom: 12,
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#2C3E50',
-    marginBottom: 5,
-  },
-  badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#E3F2FD',
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 20,
-    marginBottom: 20,
-    gap: 6,
-  },
-  badgeText: {
-    color: '#1976D2',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  infoSection: {
-    width: '100%',
-    gap: 18,
     marginBottom: 30,
   },
-  infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 3,
+    borderColor: '#fff',
+    marginBottom: 15,
   },
-  infoText: {
-    fontSize: 15,
-    color: '#34495E',
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
   },
-  logoutBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#D32F2F',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+  infoContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  infoItem: {
+    marginBottom: 15,
+  },
+  infoLabel: {
+    fontSize: 14,
+    color: '#777',
+    marginBottom: 5,
+  },
+  infoValue: {
+    fontSize: 16,
+    color: '#333',
+  },
+  logoutButton: {
+    backgroundColor: '#e74c3c',
+    padding: 15,
     borderRadius: 8,
-    gap: 8,
+    alignItems: 'center',
   },
-  logoutText: {
+  logoutButtonText: {
     color: '#fff',
-    fontSize: 15,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
